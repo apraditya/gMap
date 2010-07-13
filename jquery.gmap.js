@@ -19,8 +19,18 @@
 		// Iterate through each element
 		return this.each(function()
 		{
-			// Create map and set initial options
-			$gmap = new GMap2(this);
+                        // Check whether a size option is given
+                        if ($.isArray(opts.size) && opts.size.length > 0)
+                        {
+                                mapSize = new GSize(opts.size[0], opts.size[1]);
+                                // Create the map with size options
+                                $gmap = new GMap2(this, {size: mapSize});
+                        }
+                        else
+                        {
+                                // Create map and set initial options
+                                $gmap = new GMap2(this);
+                        }
 			
 			// Create new object to geocode addresses
 			$geocoder = new GClientGeocoder();
@@ -190,6 +200,7 @@
 		maptype:				G_NORMAL_MAP,
 		html_prepend:			'<div class="gmap_marker">',
 		html_append:			'</div>',
+                size:                                   [],
 		icon:
 		{
 			image:				"http://www.google.com/mapfiles/marker.png",
